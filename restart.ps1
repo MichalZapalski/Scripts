@@ -1,0 +1,1 @@
+﻿az vm restart --resource-group myresourcegroup --name vmname
