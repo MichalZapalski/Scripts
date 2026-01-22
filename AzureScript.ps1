@@ -1,14 +1,14 @@
 ﻿This mail has been sent from an external source
 
-$SubscriptionID = "69d9f5bd-e2c2-4d19-addc-12711ae84e20"
-$TennantID  = "3b23a659-5dc8-40dc-87e6-9904135288f5"
-$ResourceGroup = "avd-prd-rg-eastus-001"
+$SubscriptionID = ""
+$TennantID  = ""
+$ResourceGroup = ""
  
-$HostPoolName = "avd-du-prod-hp-eastus-001"
-$ComputerName = "VANTAGEVDISP075"
+$HostPoolName = ""
+$ComputerName = ""
  
-$RDPUser = "avdadmin"
-$RDPPass = ("Pass@3214567" | ConvertTo-SecureString -AsPlainText -Force) | ConvertFrom-SecureString
+$RDPUser = "Username"
+$RDPPass = ("Pass" | ConvertTo-SecureString -AsPlainText -Force) | ConvertFrom-SecureString
  
 Get-AzContext
  
@@ -22,12 +22,12 @@ Connect-AzureAD
  
     $Hosts = Get-AzWvdSessionHost -ResourceGroupName $ResourceGroup -HostPoolName $HostPoolName
     
-    $User = "naveen.hasanabada"
+    $User = ""
     $result = Get-AzWvdSessionHost -ResourceGroupName $ResourceGroup -HostPoolName $HostPoolName | Select AssignedUser, Name  | Where {$_.AssignedUser -like "$User*"}
     $result.Name.Split('/')[1]
  
     #####
-$HostPoolName = @("avd-du-prod-hp-eastus-001","avd-su-prod-hp-eastus-001","avd-au-prod-hp-eastus-001")
+$HostPoolName = @("","","")
  
 function SearchAssignedUser ($UserName)
 {
@@ -45,9 +45,9 @@ function SearchAssignedUser ($UserName)
     }
 }
  
-SearchAssignedUser("holden")
-SearchAssignedUser("sachs")    
-SearchAssignedUser("hathaw")
+SearchAssignedUser("")
+SearchAssignedUser("")    
+SearchAssignedUser("")
  
     #####
     $result = Get-AzWvdSessionHost -ResourceGroupName $ResourceGroup -HostPoolName $HostPoolName | Select AssignedUser, Name  | Where {$_.AssignedUser -like "$User*"}
@@ -56,11 +56,11 @@ SearchAssignedUser("hathaw")
  
     #How to assign user to the machine
     Get-AzWvdSessionHost -ResourceGroupName $ResourceGroup -HostPoolName $HostPoolName | Select AssignedUser, Name | Out-GridView
-    $upn = (Get-AzADUser | Where {$_.Mail -eq andrzej.demski@vantagerisk.com}).UserPrincipalName
+    $upn = (Get-AzADUser | Where {$_.Mail -eq }).UserPrincipalName
  
-    Update-AzWvdSessionHost -ResourceGroupName $ResourceGroup -HostPoolName $HostPoolName -Name "VANTAGEVDID0009" -AssignedUser $upn
+    Update-AzWvdSessionHost -ResourceGroupName $ResourceGroup -HostPoolName $HostPoolName -Name "" -AssignedUser $upn
  
-    Update-AzWvdSessionHost -ResourceGroupName $ResourceGroup -HostPoolName $HostPoolName -Name "VANTAGEVDID0009" -AssignedUser "" -Confirm: $false -force
+    Update-AzWvdSessionHost -ResourceGroupName $ResourceGroup -HostPoolName $HostPoolName -Name "" -AssignedUser "" -Confirm: $false -force
     
  
     $result.GetType()
@@ -121,7 +121,7 @@ password 51:b:$RDPPass
  
 #region Remove VM, nic, Disk and user from hostpool
  
-$HostPoolName = "avd-su-test-hp-eastus-001"
+$HostPoolName = ""
  
 [System.Collections.ArrayList]$res = Get-AzWvdSessionHost -ResourceGroupName $ResourceGroup -HostPoolName $HostPoolName | % {New-Object PSObject -Property @{"User" =$_.AssignedUser; "Host"= $_.Name.Split('/')[1]}}
  
@@ -129,7 +129,7 @@ $HostPoolName = "avd-su-test-hp-eastus-001"
  
 foreach($item in $res)
 {
-    if(($item.User -like "*lapinski*") -or ($item.User -like "*boguszewski*") -or ($item.User -like "*demski*") -or ($item.User -like "*Obrien*") -or ($item.User -like "*dey*"))
+    if(($item.User -like "**") -or ($item.User -like "**") -or ($item.User -like "**") -or ($item.User -like "**") -or ($item.User -like "**"))
     {
         Write-Host "znalazlem"
     }
@@ -141,7 +141,7 @@ foreach($item in $res)
  
 }
  
-$CM = "VANTAGEVDID0014"
+$CM = ""
  
 foreach($item in $res2)
 {
@@ -173,7 +173,7 @@ $AppGroupName = "AVD_AzureDataStudio_prod_devices"
 $GroupID = ""
 $ObjectDeviceID = ""
 $UserListFile = "C:\temp\UserList.csv"
-$HostPoolName = "avd-au-prod-hp-eastus-001"
+$HostPoolName = ""
  
 $ContentFile = Get-Content -Path $UserListFile
 $GroupID = (Get-AzureADGroup -SearchString $AppGroupName).ObjectID
@@ -219,9 +219,3 @@ foreach ($item in $ContentFile)
  
  
 #endregion 
- 
- 
-Best regards,
-Michal
- 
-This email and any attachments are confidential and may contain trade secret and/or privileged material. If you are not the intended recipient of this information, do not review, re-transmit, disclose, disseminate, use, or take any action in reliance upon, this information. If you have received this message in error, please advise the sender immediately by reply email and delete this message. 
